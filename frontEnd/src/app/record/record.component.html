@@ -1,0 +1,42 @@
+<h3 class="text-center mt-3">Add Your Weight Record</h3>
+<form class="mx-auto mt-3"
+      style="max-width: 400px;min-width: 300px;">
+  <div class="form-group">
+    <label for="date"
+           class="col-form-label">Date</label>
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control shadow-sm"
+               placeholder="yyyy-mm-dd"
+               name="dp"
+               ngbDatepicker
+               #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar"
+                  (click)="d.toggle()"
+                  type="button">
+            <i class="fas fa-calendar-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="weight"
+           class="col-form-label mr-2">Weight</label>
+    <div class="input-group">
+      <input type="number"
+             step="0.01"
+             class="form-control shadow-sm"
+             id="weight"
+             name="weight"
+             aria-describedby="Weight"
+             placeholder="Enter Weight">
+      <div class="input-group-append">
+        <span class="input-group-text">Kg</span>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-block mt-4"
+          type="submit">Add</button>
+</form>

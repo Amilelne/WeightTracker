@@ -1,0 +1,16 @@
+{
+  "name": "weighttracker",
+  "version": "1.0.0",
+  "description": "An app to track weight",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Amelie.li",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.3.2"
+  }
+}

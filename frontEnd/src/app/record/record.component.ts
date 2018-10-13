@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecordService } from '../record.service';
 
 @Component({
   selector: 'app-record',
@@ -6,8 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.css']
 })
 export class RecordComponent implements OnInit {
-  model;
-  constructor() {}
+  constructor(private recordService: RecordService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getRecords();
+  }
+
+  getRecords() {
+    this.recordService.getRecords().subscribe(records => {
+      console.log(records);
+    });
+  }
 }

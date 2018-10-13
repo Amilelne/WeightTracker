@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { RecordComponent } from './record/record.component';
 
 const routes: Routes = [
+  { path: '', component: GraphComponent },
   { path: 'graph', component: GraphComponent },
   { path: 'record', component: RecordComponent },
   { path: 'login', component: LoginComponent },

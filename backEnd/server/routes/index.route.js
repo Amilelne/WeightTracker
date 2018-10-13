@@ -9,7 +9,8 @@ mongoose.connect('mongodb://localhost/weight');
 const Record = require('../models/record');
 const User = require('../models/user');
 
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
+  console.log(req.body);
   let email = req.body.email;
   let password = req.body.password;
   User.findOne({ email: email }, function(err, doc) {
@@ -49,6 +50,17 @@ router.post('/record', (req, res) => {
       console.error(err);
       return res.status(404).end();
     } else {
+      return res.status(200).end();
+    }
+  });
+});
+router.get('/record', (req, res) => {
+  Record.find(function(err, records) {
+    if (err) {
+      console.error(err);
+      return res.status(404).end();
+    } else {
+      res.json(records);
       return res.status(200).end();
     }
   });

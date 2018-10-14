@@ -8,7 +8,7 @@ export class RecordService {
   constructor(private http: HttpClient) {}
 
   getRecords() {
-    const url = '/api/record';
+    const url = 'http://localhost:3000/api/record';
     return this.http.get(url);
   }
 }

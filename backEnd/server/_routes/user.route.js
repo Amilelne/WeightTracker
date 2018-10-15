@@ -2,6 +2,7 @@ const express = require('express');
 const userRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const crypt = require('../_helpers/crypt');
 
 //connect through mongoose
 const mongoose = require('mongoose');
@@ -19,7 +20,7 @@ userRouter.post('/login', (req, res) => {
       return res.status(500).end();
     } else {
       // User exists and password right
-      if (doc && doc['password'] == password) {
+      if (doc && crypt.checkPassword(password, doc['password'])) {
         const token = jwt.sign({ sub: doc['userId'] }, config.secret);
         return res.status(200).json(token);
       }
@@ -29,10 +30,11 @@ userRouter.post('/login', (req, res) => {
   });
 });
 userRouter.post('/register', (req, res) => {
+  let password = crypt.encode(req.body.password);
   let user = new User({
     userId: req.body.userId,
     email: req.body.email,
-    password: req.body.password
+    password: password
   });
   User.create(user, function(err) {
     if (err) {

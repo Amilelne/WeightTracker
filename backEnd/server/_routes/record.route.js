@@ -2,9 +2,6 @@ const express = require('express');
 
 const recordRouter = express.Router();
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/weight');
-
 // Models defined in mongoose schema
 const Record = require('../_models/record');
 

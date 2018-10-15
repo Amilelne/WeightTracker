@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from '../_service/user.service';
-import { User } from '../_model/user';
+import { UserService } from '../service/user.service';
+import { User } from '../model/user';
 import { Router, ActivatedRoute } from '@angular/router';
-import { confirmPasswordValidation } from '../_directive/confirm-password.directive';
+import { confirmPasswordValidation } from './confirm-password.directive';
 
 @Component({
   selector: 'app-register',

@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';

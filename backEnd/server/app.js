@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const routes = require('./_routes/index.route');
-const jwt = require('./_helpers/jwt');
-const errorHandler = require('./_helpers/error-handler');
+const routes = require('./routes/index.route');
+const jwt = require('./helpers/jwt');
+const errorHandler = require('./helpers/error-handler');
 
 app.use(cors());
 

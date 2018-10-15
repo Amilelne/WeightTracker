@@ -4,10 +4,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const crypt = require('../_helpers/crypt');
 
-//connect through mongoose
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/weight');
-
 // Models defined in mongoose schema
 const User = require('../_models/user');
 

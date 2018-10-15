@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../_service/user.service';
 import { User } from '../_model/user';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HeaderService } from '../_service/header.service';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,16 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private headerService: HeaderService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.loginResult = false;
+    // Clear localstorage
+    localStorage.clear();
+    // LoginForm validation
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -40,6 +45,7 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.value['password'];
     this.userService.login({ email, password } as User).subscribe(
       () => {
+        this.headerService.login();
         this.router.navigate(['/']);
       },
       () => {

@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { User } from '../_model/user';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  serverPrefix: string;
+
+  constructor(private http: HttpClient) {
+    this.serverPrefix = 'http://localhost:3000';
+  }
 
   login(user: User) {
-    const url = 'http://localhost:3000/api/user/login';
+    const url = this.serverPrefix + '/api/user/login';
     return this.http.post(url, user).pipe(
       map(u => {
         if (u) {
@@ -19,5 +22,11 @@ export class UserService {
         return u;
       })
     );
+  }
+
+  register(user: User) {
+    const url = this.serverPrefix + '/api/user/register';
+
+    return this.http.post(url, user);
   }
 }

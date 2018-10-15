@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../_service/header.service';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  isLogin: boolean;
+  constructor(private headerService: HeaderService) {
+    this.isLogin = false;
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.headerService.change.subscribe(isLogin => {
+      this.isLogin = isLogin;
+    });
+  }
 }

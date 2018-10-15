@@ -11,6 +11,15 @@
          class="nav-link">Record</a>
     </li>
   </ul>
-  <a routerLink="/login"
-     class="nav-link text-secondary">Login</a>
+  <div *ngIf="loginResult; else elseBlock">
+    <button routerLink="/logout"
+            class="nav-link btn-outline-dark">Log out</button>
+  </div>
+  <ng-template #elseBlock>
+    <button routerLink="/login"
+            class="nav-link btn-outline-dark mr-2">Login</button>
+    <button routerLink="/register"
+            class="nav-link btn-danger">Register</button>
+  </ng-template>
+
 </nav>

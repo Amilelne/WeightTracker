@@ -5,7 +5,6 @@ const httpErrors = require('http-errors');
 
 // Models defined in mongoose schema
 const User = require('../models/user');
-const Record = require('../models/record');
 
 userRouter.post('/login', json(), asyncHandler(login));
 
@@ -34,7 +33,4 @@ async function login(req, res) {
   res.header({ 'x-auth-token': token }).toClient(user);
 }
 
-async function addRecord(req, res) {
-  const input = req.body;
-}
 module.exports = userRouter;

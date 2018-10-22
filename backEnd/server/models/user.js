@@ -45,10 +45,10 @@ const jwtSecret = conf('security.jwt_secret');
 UserSchema.methods.getAuthToken = function() {
   return sign({ access: 'auth', id: this._id }, jwtSecret);
 };
-UserSchema.methods.findByToken = async function(token) {
+UserSchema.statics.findByToken = async function(token) {
   const payload = verify(token, jwtSecret);
   if (payload.access !== 'auth') throw new Error('Payload access is not valid');
-  return this.findByToken(payload.id);
+  return this.findById(payload.id);
 };
 
 const name = conf('collections.user');

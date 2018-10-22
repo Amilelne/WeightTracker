@@ -1,43 +1,40 @@
 const express = require('express');
 const userRouter = express.Router();
-const jwt = require('jsonwebtoken');
-const config = require('../config');
-const crypt = require('../_helpers/crypt');
+const { json, bodyValidator, auth, asyncHandler } = require('../middlewares');
+const httpErrors = require('http-errors');
 
 // Models defined in mongoose schema
-const User = require('../_models/user');
+const User = require('../models/user');
+const Record = require('../models/record');
 
-userRouter.post('/login', (req, res) => {
-  console.log(req.body);
-  let email = req.body.email;
-  let password = req.body.password;
-  User.findOne({ email: email }, function(err, doc) {
-    if (err) {
-      return res.status(500).end();
-    } else {
-      // User exists and password right
-      if (doc && crypt.checkPassword(password, doc['password'])) {
-        const token = jwt.sign({ sub: doc['userId'] }, config.secret);
-        return res.status(200).json(token);
-      }
-      // User doesn't exist or password wrong
-      return res.status(400).end();
-    }
-  });
-});
-userRouter.post('/register', (req, res) => {
-  let password = crypt.encode(req.body.password);
-  let user = new User({
-    userId: req.body.userId,
-    email: req.body.email,
-    password: password
-  });
-  User.create(user, function(err) {
-    if (err) {
-      console.log(err);
-    }
-  });
-  return res.status(200).end();
-});
+userRouter.post('/login', json(), asyncHandler(login));
 
+userRouter.post('/register', json(), asyncHandler(register));
+
+async function register(req, res) {
+  const input = req.body;
+
+  // check whether email exist
+  if (await User.findOne({ email: input.email })) {
+    throw new httpErrors.BadRequest('User already exists');
+  }
+
+  const user = await new User(input).save();
+  res.toClient(user);
+}
+
+async function login(req, res) {
+  const input = req.body;
+
+  let user = await User.findOne({ email: input.email });
+  if (!user || !(await user.checkPassword(input.password))) {
+    throw new httpErrors.BadRequest('Email or password is invalid!');
+  }
+  const token = user.getAuthToken();
+  res.header({ 'x-auth-token': token }).toClient(user);
+}
+
+async function addRecord(req, res) {
+  const input = req.body;
+}
 module.exports = userRouter;

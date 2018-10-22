@@ -3,13 +3,11 @@ const express = require('express');
 const recordRouter = express.Router();
 
 // Models defined in mongoose schema
-const Record = require('../_models/record');
+const Record = require('../models/record');
 
 recordRouter.post('/', (req, res) => {
-  let date = req.body.date;
-  let weight = req.body.weight;
-  let userId = req.body.userId;
-  let record = new Record({ userId: userId, date: date, weight: weight });
+  const { date, weight, userId } = req.body;
+  let record = new Record({ userId, date, weight });
   Record.create(record, function(err) {
     if (err) {
       console.error(err);

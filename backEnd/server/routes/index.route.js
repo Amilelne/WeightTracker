@@ -2,14 +2,15 @@ const express = require('express');
 
 const router = express.Router();
 
-//connect through mongoose
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/weight');
+router.use((req, res, next) => {
+  res.toClient = doc => {
+    res.json(doc.toClient ? doc.toClient() : doc);
+    return res;
+  };
+  next();
+});
 
-const userRoute = require('./user.route');
-const recordRoute = require('./record.route');
-
-router.use('/user', userRoute);
-router.use('/record', recordRoute);
+router.use(require('./user.route'));
+router.use(require('./record.route'));
 
 module.exports = router;

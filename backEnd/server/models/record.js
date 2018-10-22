@@ -1,3 +1,4 @@
+const { conf } = require('../config');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -16,4 +17,5 @@ let RecordSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Record', RecordSchema);
+const name = conf('collections.record');
+module.exports = mongoose.model(name, RecordSchema, name);

@@ -1,3 +1,4 @@
 const app = require('./app');
 
-app.listen(3000, () => console.log('Listening on 3000!'));
+const port = Number(app.get('port'));
+app.listen(port, () => console.log(`Listening on ${port}!`));

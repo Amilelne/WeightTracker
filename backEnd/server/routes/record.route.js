@@ -2,14 +2,14 @@ const express = require('express');
 
 const recordRouter = express.Router();
 
-const { asyncHandler, json, auth } = require('../middlewares');
+const { asyncHandler, auth } = require('../middlewares');
 const url = require('url');
 // Models defined in mongoose schema
 const Record = require('../models/record');
 
-recordRouter.post('/record', json(), auth(), asyncHandler(addRecord));
+recordRouter.post('/record', auth(), asyncHandler(addRecord));
 
-recordRouter.get('/record', json(), auth(), asyncHandler(getRecord));
+recordRouter.get('/record', auth(), asyncHandler(getRecord));
 
 async function addRecord(req, res) {
   const input = req.body;

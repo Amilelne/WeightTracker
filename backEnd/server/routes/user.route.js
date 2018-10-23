@@ -4,7 +4,7 @@ const { json, bodyValidator, auth, asyncHandler } = require('../middlewares');
 const httpErrors = require('http-errors');
 
 // Models defined in mongoose schema
-const User = require('../models/user');
+const { User } = require('../models/user');
 
 userRouter.post('/login', json(), asyncHandler(login));
 

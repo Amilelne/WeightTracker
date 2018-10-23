@@ -52,4 +52,4 @@ UserSchema.statics.findByToken = async function(token) {
 };
 
 const name = conf('collections.user');
-module.exports = mongoose.model(name, UserSchema, name);
+exports.User = mongoose.model(name, UserSchema, name);
